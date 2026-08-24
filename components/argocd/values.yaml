@@ -16,3 +16,9 @@ applicationSet:
 configs:
   cm:
     kustomize.buildOptions: --enable-helm
+    accounts.argo-preview: apiKey
+  rbac:
+    policy.csv: |
+      g, baylin2, role:readonly
+  params:
+    server.insecure: true 
