@@ -1,8 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 
 service:
   type: ClusterIP
-  # Optional: Customize the internal ports if needed
-  ports:
-    http: 80
-    https: 443
