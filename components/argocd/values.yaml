@@ -19,6 +19,6 @@ configs:
     accounts.argo-preview: apiKey
   rbac:
     policy.csv: |
-      g, baylin2, role:readonly
+      g, argo-preview, role:readonly
   # params:
   #   server.insecure: true 
