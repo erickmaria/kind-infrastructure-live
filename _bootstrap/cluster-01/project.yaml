@@ -1,13 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: infrastructure
+  name: cluster-01
   namespace: argocd
-
 spec:
   sourceRepos:
-    - https://github.com/meu-org/kind-infrastructure-live.git
-
+    - https://github.com/erickmaria/kind-infrastructure-live.git
   destinations:
     - server: https://kubernetes.default.svc
       namespace: "*"
@@ -15,40 +13,31 @@ spec:
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
-
 metadata:
   name: infrastructure
   namespace: argocd
-
 spec:
   generators:
     - git:
-        repoURL: https://github.com/seu-org/kind-infrastructure-live.git
-        revision: main
-
+        repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
+        revision: HEAD
         directories:
-          - path: apps/*
-
+          - path: clusters/cluster-01/namepsaces/*
   template:
     metadata:
-      name: '{{path.basename}}'
-
+      name: 'cluster-01.{{path.basename}}'
     spec:
-      project: infrastructure
-
+      project: cluster-01
       source:
-        repoURL: https://github.com/seu-org/kind-infrastructure-live.git
-        targetRevision: main
+        repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
+        targetRevision: HEAD
         path: '{{path}}'
-
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
-
       syncPolicy:
         automated:
-          prune: true
+          # prune: true
           selfHeal: true
-
         syncOptions:
           - CreateNamespace=true
