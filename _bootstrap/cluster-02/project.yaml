@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cluster-02
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  description: cluster-02 project environment
+  sourceRepos:
+    - https://github.com/erickmaria/kind-infrastructure-live.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: "*"
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: infrastructure
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
+        revision: HEAD
+        directories:
+          - path: clusters/cluster-02/namepsaces/*
+  template:
+    metadata:
+      name: 'cluster-02.{{path.basename}}'
+    spec:
+      project: cluster-02
+      source:
+        repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        automated:
+          # prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

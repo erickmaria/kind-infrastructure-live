@@ -2,14 +2,17 @@
 
 # Bootstrap: aplicar o root Application manualmente (apenas uma vez)
 bootstrap:
-	kubectl apply -f clusters/prod/root.yaml
+	kubectl apply -f _bootstrap/cluster-01/project.yaml
+
+# Bootstrap do cluster-02 (aplicar manualmente apontando para o novo cluster)
+bootstrap-cluster-02:
+	kubectl apply -f _bootstrap/cluster-02/project.yaml
 
 # Validar manifests com kustomize
 validate:
-	kustomize build clusters/prod --enable-helm
-	kustomize build clusters/dr --enable-helm
-	kustomize build apps/sealed-secrets --enable-helm
-	kustomize build apps/example --enable-helm
+	kustomize build clusters/cluster-01/namespaces/argocd --enable-helm
+	kustomize build clusters/cluster-01/namespaces/nginx --enable-helm
+	kustomize build clusters/cluster-02/namespaces/argocd --enable-helm
 
 # Ver diff antes de aplicar
 diff:
