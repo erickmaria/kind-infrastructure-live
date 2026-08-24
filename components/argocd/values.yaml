@@ -19,6 +19,6 @@ configs:
     accounts.argo-preview: apiKey
   rbac:
     policy.csv: |
-      g, argo-preview, role:developer
+      g, argo-preview, role:admin
   # params:
   #   server.insecure: true 
