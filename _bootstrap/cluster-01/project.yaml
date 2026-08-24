@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infrastructure
+  namespace: argocd
+
+spec:
+  sourceRepos:
+    - https://github.com/meu-org/kind-infrastructure-live.git
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: "*"
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+
+metadata:
+  name: infrastructure
+  namespace: argocd
+
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/seu-org/kind-infrastructure-live.git
+        revision: main
+
+        directories:
+          - path: apps/*
+
+  template:
+    metadata:
+      name: '{{path.basename}}'
+
+    spec:
+      project: infrastructure
+
+      source:
+        repoURL: https://github.com/seu-org/kind-infrastructure-live.git
+        targetRevision: main
+        path: '{{path}}'
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+        syncOptions:
+          - CreateNamespace=true
