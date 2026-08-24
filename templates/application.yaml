@@ -6,7 +6,7 @@ metadata:
 spec:
   project: {{ .Project | default "apps" }}
   source:
-    repoURL: https://github.com/ORG/gitops.git
+    repoURL: https://github.com/erickmaria/gitops.git
     targetRevision: {{ .TargetRevision | default "HEAD" }}
     path: apps/{{ .AppPath }}
   destination:

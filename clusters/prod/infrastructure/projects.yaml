@@ -6,7 +6,7 @@ metadata:
 spec:
   description: Configuração de cluster (infraestrutura e plataforma)
   sourceRepos:
-    - https://github.com/ORG/gitops.git
+    - https://github.com/erickmaria/gitops.git
   destinations:
     - server: https://kubernetes.default.svc
     - namespace: sealed-secrets
@@ -26,7 +26,7 @@ metadata:
 spec:
   description: Aplicações de negócio
   sourceRepos:
-    - https://github.com/ORG/gitops.git
+    - https://github.com/erickmaria/gitops.git
   destinations:
     - namespace: '*'
   namespaceResourceWhitelist:
@@ -41,7 +41,7 @@ metadata:
 spec:
   description: Apps gerenciadas no cluster de DR (spoke)
   sourceRepos:
-    - https://github.com/ORG/gitops.git
+    - https://github.com/erickmaria/gitops.git
   destinations:
     - name: dr-cluster
       namespace: '*'

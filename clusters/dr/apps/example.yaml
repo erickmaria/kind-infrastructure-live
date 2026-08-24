@@ -6,7 +6,7 @@ metadata:
 spec:
   project: dr
   source:
-    repoURL: https://github.com/ORG/gitops.git
+    repoURL: https://github.com/erickmaria/gitops.git
     targetRevision: HEAD
     path: apps/example
   destination:

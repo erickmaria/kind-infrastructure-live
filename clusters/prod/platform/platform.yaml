@@ -6,7 +6,7 @@ metadata:
 spec:
   project: cluster-config
   source:
-    repoURL: https://github.com/ORG/gitops.git
+    repoURL: https://github.com/erickmaria/gitops.git
     targetRevision: HEAD
     path: clusters/prod/platform
   destination:
