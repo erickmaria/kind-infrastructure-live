@@ -4,6 +4,10 @@ metadata:
   name: cluster-01
   namespace: argocd
 spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  description: cluster-01 project envrionment
   sourceRepos:
     - https://github.com/erickmaria/kind-infrastructure-live.git
   destinations:

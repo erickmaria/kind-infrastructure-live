@@ -12,3 +12,7 @@ repoServer:
 
 applicationSet:
   replicas: 1
+
+configs:
+  cm:
+    kustomize.buildOptions: --enable-helm
