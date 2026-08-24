@@ -20,5 +20,5 @@ configs:
   rbac:
     policy.csv: |
       g, baylin2, role:readonly
-  params:
-    server.insecure: true 
+  # params:
+  #   server.insecure: true 
