@@ -1,0 +1,29 @@
+# Git
+.git/
+
+# Kustomize/Helm build artifacts
+*.kubeconfig
+kubeconfig
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (nunca commitar!)
+*.sealed-secret.yaml
+!apps/sealed-secrets/
+!**/sealed-secret.example.yaml
+
+# Helm
+charts/
+*.tgz
+
+# Temporary files
+*.tmp
+*.bak

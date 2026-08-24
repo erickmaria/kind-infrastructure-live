@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sealed-secrets
+  namespace: argocd
+spec:
+  project: cluster-config
+  source:
+    repoURL: https://github.com/ORG/gitops.git
+    targetRevision: HEAD
+    path: apps/sealed-secrets
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: projects
+  namespace: argocd
+spec:
+  project: cluster-config
+  source:
+    repoURL: https://github.com/ORG/gitops.git
+    targetRevision: HEAD
+    path: clusters/prod/infrastructure
+    directory:
+      include: '{projects.yaml}'
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

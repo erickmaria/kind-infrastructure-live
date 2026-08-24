@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example
+  namespace: argocd
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/ORG/gitops.git
+    targetRevision: HEAD
+    path: apps/example
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: example
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

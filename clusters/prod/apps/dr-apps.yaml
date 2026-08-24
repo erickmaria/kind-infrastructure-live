@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dr-apps
+  namespace: argocd
+spec:
+  project: dr
+  source:
+    repoURL: https://github.com/ORG/gitops.git
+    targetRevision: HEAD
+    path: clusters/dr/apps
+  destination:
+    name: dr-cluster
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

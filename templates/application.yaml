@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .AppName }}
+  namespace: argocd
+spec:
+  project: {{ .Project | default "apps" }}
+  source:
+    repoURL: https://github.com/ORG/gitops.git
+    targetRevision: {{ .TargetRevision | default "HEAD" }}
+    path: apps/{{ .AppPath }}
+  destination:
+    server: {{ .DestinationServer | default "https://kubernetes.default.svc" }}
+    namespace: {{ .DestinationNamespace | default .AppName }}
+    name: {{ .DestinationName }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
