@@ -26,7 +26,7 @@ spec:
         repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
         revision: HEAD
         directories:
-          - path: clusters/cluster-02/namepsaces/*
+          - path: clusters/cluster-02/namespaces/*
   template:
     metadata:
       name: 'cluster-02.{{path.basename}}'
