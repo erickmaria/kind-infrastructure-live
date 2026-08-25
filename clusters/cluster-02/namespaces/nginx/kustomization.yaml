@@ -1,3 +1,12 @@
 ---
 resources:
-  - ../../../../components/nginx  
+  - ../../../../components/nginx
+
+patches:
+  - target:
+      kind: Deployment
+      name: nginx
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 5
