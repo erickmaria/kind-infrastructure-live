@@ -10,6 +10,9 @@ spec:
   description: hub project envrionment
   sourceRepos:
     - https://github.com/erickmaria/kind-infrastructure-live.git
+  destinations:
+    - server: "*"
+      namespace: "*"
 
 ---
 apiVersion: argoproj.io/v1alpha1
