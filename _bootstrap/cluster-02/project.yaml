@@ -27,6 +27,8 @@ spec:
         revision: HEAD
         directories:
           - path: clusters/cluster-02/namespaces/*
+  syncPolicy:
+    preserveResourcesOnDeletion: true
   template:
     metadata:
       name: '{{nameNormalized}}.{{path.basename}}'

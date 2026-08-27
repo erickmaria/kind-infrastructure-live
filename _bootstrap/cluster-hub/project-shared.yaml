@@ -28,7 +28,7 @@ spec:
       selector:
         matchLabels:
           argocd.argoproj.io/secret-type: cluster
-  syncOptions:
+  syncPolicy:
     preserveResourcesOnDeletion: true
   template:
     metadata:

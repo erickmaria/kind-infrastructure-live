@@ -24,7 +24,7 @@ spec:
         revision: HEAD
         directories:
           - path: clusters/cluster-hub/namespaces/*
-  syncOptions:
+  syncPolicy:
     preserveResourcesOnDeletion: true
   template:
     metadata:
