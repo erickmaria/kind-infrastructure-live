@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: cluster-hub
+  name: shared
   namespace: argocd
 spec:
   clusterResourceWhitelist:
@@ -15,7 +15,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: infrastructure
+  name: shared
   namespace: argocd
 spec:
   generators:
@@ -23,7 +23,11 @@ spec:
         repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
         revision: HEAD
         directories:
-          - path: clusters/cluster-hub/namespaces/*
+          - path: clusters/_shared/namespaces/*
+    - clusters:
+      selector:
+        matchLabels:
+          argocd.argoproj.io/secret-type: cluster
   syncOptions:
     preserveResourcesOnDeletion: true
   template:
