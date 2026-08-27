@@ -1,18 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: cluster-01
+  name: hub
   namespace: argocd
 spec:
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
-  description: cluster-01 project envrionment
+  description: hub project envrionment
   sourceRepos:
     - https://github.com/erickmaria/kind-infrastructure-live.git
-  destinations:
-    - server: https://kubernetes.default.svc
-      namespace: "*"
 
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -26,22 +23,29 @@ spec:
         repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
         revision: HEAD
         directories:
-          - path: clusters/cluster-01/namespaces/*
+          - path: clusters/_shared/namespaces/*
+    - clusters:
+      selector:
+        matchLabels:
+          argocd.argoproj.io/secret-type: cluster
+  syncOptions:
+    preserveResourcesOnDeletion: true
   template:
     metadata:
       name: '{{nameNormalized}}.{{path.basename}}'
+      labels:
+        cluster: '{{name}}'
     spec:
-      project: cluster-01
+      project: hub
       source:
         repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
         targetRevision: HEAD
         path: '{{path}}'
       destination:
-        server: https://kubernetes.default.svc
+        server: '{{server}}'
         namespace: '{{path.basename}}'
       syncPolicy:
         automated:
-          # prune: true
           selfHeal: true
         syncOptions:
           - CreateNamespace=true

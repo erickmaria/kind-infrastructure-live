@@ -1,0 +1,54 @@
+# hack/manifest-templates/provider/kind/values.yaml
+controller:
+  # WITH NODEPORT
+  # service:
+  #  type: NodePort
+  # WITH METALLB
+  service:
+   type: LoadBalancer
+  annotations:
+    metallb.universe.tf/address-pool: default-pool
+  hostPort:
+    enabled: true
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+  autoscaling:
+    enabled: false
+    behavior:
+      scaleDown:
+        stabilizationWindowSeconds: 300
+        policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 180
+  # resources:
+  #   ##  limits:
+  #   ##    cpu: 100m
+  #   ##    memory: 90Mi
+  #   requests:
+  #     cpu: 100m
+  #     memory: 90Mi
+
+  ingressClassResource:
+    name: nginx
+    default: true
+    controllerValue: k8s.io/ingress-nginx
+  # nodeSelector:
+  #   ingress-ready: "true"
+  # watchIngressWithoutClass: true
+  # nodeSelector:
+  #   ingress-ready: "true"
+  # tolerations:
+  # - effect: "NoSchedule"
+  #   key: "node-role.kubernetes.io/master"
+  #   operator: "Equal"
+  # - effect: "NoSchedule"
+  #   key: "node-role.kubernetes.io/control-plane"
+  #   operator: "Equal"
+  # publishService:
+  #   enabled: false
+  # extraArgs:
+  #   publish-status-address: "localhost"

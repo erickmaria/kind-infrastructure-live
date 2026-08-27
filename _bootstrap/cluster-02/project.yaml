@@ -29,7 +29,7 @@ spec:
           - path: clusters/cluster-02/namespaces/*
   template:
     metadata:
-      name: 'cluster-02.{{path.basename}}'
+      name: '{{nameNormalized}}.{{path.basename}}'
     spec:
       project: cluster-02
       source:
