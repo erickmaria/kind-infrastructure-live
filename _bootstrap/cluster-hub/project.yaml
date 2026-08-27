@@ -32,7 +32,7 @@ spec:
       labels:
         cluster: '{{name}}'
     spec:
-      project: hub
+      project: cluster-hub
       source:
         repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
         targetRevision: HEAD
