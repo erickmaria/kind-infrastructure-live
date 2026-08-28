@@ -75,3 +75,15 @@ spec:
 
         syncOptions:
           - CreateNamespace=true
+  templatePatch: |
+    spec:
+      source:
+        kustomize:
+          patches:
+            - target:
+                kind: Ingress
+                name: argocd-server
+              patch: |-
+                - op: replace
+                  path: /spec/rules/0/host
+                  value: '{{ index .metadata.annotations "infrastructure.argocd.io/domain" }}'
