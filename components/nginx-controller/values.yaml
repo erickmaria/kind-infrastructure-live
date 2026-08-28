@@ -1,13 +1,13 @@
 # hack/manifest-templates/provider/kind/values.yaml
 controller:
   # WITH NODEPORT
-  # service:
-  #  type: NodePort
-  # WITH METALLB
   service:
-   type: LoadBalancer
-  annotations:
-    metallb.universe.tf/address-pool: default-pool
+   type: NodePort
+  # WITH METALLB
+  # service:
+  #  type: LoadBalancer
+  # annotations:
+  #   metallb.universe.tf/address-pool: default-pool
   hostPort:
     enabled: true
   metrics:
