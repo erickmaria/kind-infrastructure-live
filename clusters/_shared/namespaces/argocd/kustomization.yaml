@@ -4,7 +4,7 @@ resources:
 
 patches:
   - target:
-    kind: Ingress
+      kind: Ingress
       name: argocd-server
     patch: |-
       - op: replace
