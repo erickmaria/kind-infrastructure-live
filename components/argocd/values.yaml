@@ -6,6 +6,10 @@ controller:
 
 server:
   replicas: 1
+  ingress:
+    enabled: true
+    ingressClassName: nginx 
+
 
 repoServer:
   replicas: 1
