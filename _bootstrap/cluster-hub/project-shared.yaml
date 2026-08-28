@@ -7,9 +7,12 @@ spec:
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
-  description: hub project envrionment
+
+  description: hub project environment
+
   sourceRepos:
     - https://github.com/erickmaria/kind-infrastructure-live.git
+
   destinations:
     - server: "*"
       namespace: "*"
@@ -20,50 +23,55 @@ kind: ApplicationSet
 metadata:
   name: shared
   namespace: argocd
+
 spec:
+  goTemplate: true
+
+  # During development I strongly recommend enabling this.
+  goTemplateOptions:
+    - missingkey=error
+
   generators:
     - matrix:
         generators:
+
           - git:
               repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
               revision: HEAD
+
               directories:
                 - path: clusters/_shared/namespaces/*
+
           - clusters:
               selector:
                 matchLabels:
                   argocd.argoproj.io/secret-type: cluster
-              values:
-                clusterDomain: '{{index .metadata.labels "cluster-domain"}}'
+
   syncPolicy:
     preserveResourcesOnDeletion: true
+
   template:
     metadata:
-      name: '{{nameNormalized}}.{{path.basename}}'
+      name: '{{ .nameNormalized }}.{{ .path.basename }}'
+
       labels:
-        cluster: '{{name}}'
+        cluster: '{{ .name }}'
+
     spec:
       project: shared
+
       source:
         repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
         targetRevision: HEAD
-        path: '{{path}}'
-        kustomize:
-          patches:
-            - target:
-                kind: Ingress
-                name: argocd-server
-
-              patch: |-
-                - op: replace
-                  path: /spec/rules/0/host
-                  value: '{{ index .metadata.annotations "infrastructure.argocd.io/domain" }}'
+        path: '{{ .path.path }}'
 
       destination:
-        server: '{{server}}'
-        namespace: '{{path.basename}}'
+        server: '{{ .server }}'
+        namespace: '{{ .path.basename }}'
+
       syncPolicy:
         automated:
           selfHeal: true
+
         syncOptions:
           - CreateNamespace=true
