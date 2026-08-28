@@ -33,6 +33,8 @@ spec:
               selector:
                 matchLabels:
                   argocd.argoproj.io/secret-type: cluster
+              values:
+                clusterDomain: '{{index .metadata.labels "cluster-domain"}}'
   syncPolicy:
     preserveResourcesOnDeletion: true
   template:
@@ -46,6 +48,17 @@ spec:
         repoURL: https://github.com/erickmaria/kind-infrastructure-live.git
         targetRevision: HEAD
         path: '{{path}}'
+        kustomize:
+          patches:
+            - target:
+                kind: Ingress
+                name: argocd-server
+
+              patch: |-
+                - op: replace
+                  path: /spec/rules/0/host
+                  value: '{{ index .metadata.annotations "infrastructure.argocd.io/domain" }}'
+
       destination:
         server: '{{server}}'
         namespace: '{{path.basename}}'

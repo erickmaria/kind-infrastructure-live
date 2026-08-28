@@ -36,8 +36,6 @@ controller:
     name: nginx
     default: true
     controllerValue: k8s.io/ingress-nginx
-  nodeSelector:
-    ingress-ready: "true"
   # watchIngressWithoutClass: true
   nodeSelector:
     ingress-ready: "true"

@@ -1,12 +1,3 @@
 ---
 resources:
   - ../../../../components/argocd
-
-patches:
-  - target:
-      kind: Ingress
-      name: argocd-server
-    patch: |-
-      - op: replace
-        path: /spec/rules/0/host
-        value: argocd.127.0.0.1.nip.io
