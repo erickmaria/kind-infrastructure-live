@@ -31,7 +31,7 @@ spec:
     preserveResourcesOnDeletion: true
   template:
     metadata:
-      name: '{{nameNormalized}}.{{path.basename}}'
+      name: 'cluster-hub.{{path.basename}}'
       labels:
         cluster: '{{name}}'
     spec:

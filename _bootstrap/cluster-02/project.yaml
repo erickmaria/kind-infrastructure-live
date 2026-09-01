@@ -31,7 +31,7 @@ spec:
     preserveResourcesOnDeletion: true
   template:
     metadata:
-      name: '{{nameNormalized}}.{{path.basename}}'
+      name: 'cluster-02.{{path.basename}}'
     spec:
       project: cluster-02
       source:
