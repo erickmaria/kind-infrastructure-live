@@ -11,7 +11,7 @@ server:
     ingressClassName: nginx
     annotations:
       # Fixes the ERR_TOO_MANY_REDIRECTS loop
-      # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       # Recommended NGINX settings for Argo CD
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-connect-timeout: "60"
