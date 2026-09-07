@@ -1,0 +1,34 @@
+kind: Deployment
+metadata:
+  name: http-echo
+  labels:
+    app: http-echo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: http-echo
+  template:
+    metadata:
+      labels:
+        app: http-echo
+    spec:
+      containers:
+      - name: http-echo
+        image: hashicorp/http-echo:latest
+        args:
+        - "-text=Hello from the Kubernetes cluster!"
+        ports:
+        - containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-echo-service
+spec:
+  type: ClusterIP
+  selector:
+    app: http-echo
+  ports:
+  - port: 80
+    targetPort: 5678
