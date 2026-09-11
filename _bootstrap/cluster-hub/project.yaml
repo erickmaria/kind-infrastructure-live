@@ -32,8 +32,6 @@ spec:
   template:
     metadata:
       name: 'cluster-hub.{{path.basename}}'
-      labels:
-        cluster: '{{name}}'
     spec:
       project: cluster-hub
       source:
