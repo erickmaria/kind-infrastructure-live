@@ -1,3 +1,4 @@
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: http-echo
@@ -20,6 +21,7 @@ spec:
         - "-text=Hello from the Kubernetes cluster!"
         ports:
         - containerPort: 5678
+
 ---
 apiVersion: v1
 kind: Service
