@@ -27,7 +27,7 @@ applicationSet:
 configs:
   cm:
     kustomize.buildOptions: --enable-helm
-    accounts.argo-preview: apiKey
+    accounts.eldorado: apiKey
   rbac:
     policy.csv: |
       p, eldorado,  applications, get, */*, allow
