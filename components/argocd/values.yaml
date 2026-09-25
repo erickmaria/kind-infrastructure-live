@@ -30,7 +30,7 @@ configs:
     accounts.eldorado: apiKey
   rbac:
     policy.csv: |
-      p, eldorado, applications, get, */*, allow
-      p, eldorado, projects, get, */*, allow
+      p, account:eldorado, applications, get, */*, allow
+      p, account:eldorado, projects, get, *, allow
   # params:
   #   server.insecure: true 
