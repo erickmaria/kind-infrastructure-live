@@ -30,6 +30,6 @@ configs:
     accounts.argo-preview: apiKey
   rbac:
     policy.csv: |
-      g, argo-preview, role:admin
+      p, eldorado,  applications, get, */*, allow
   # params:
   #   server.insecure: true 
